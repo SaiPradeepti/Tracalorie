@@ -7,6 +7,9 @@ const App = (function(ItemCtrl, UICtrl){
 
         //Add item event
         document.querySelector(UISelectors.addBtn).addEventListener('click', itemAddSubmit);
+
+        //Edit icon click event
+        document.querySelector(UISelectors.itemList).addEventListener('click',itemUpdateSubmit);
     }
 
     //Add item submit
@@ -35,9 +38,28 @@ const App = (function(ItemCtrl, UICtrl){
 
         e.preventDefault();
     }
+
+    const itemUpdateSubmit = function(e){
+        if(e.target.classList.contains('edit-item')){
+            let listId = e.target.parentNode.parentNode.id;
+            const listIdArr = listId.split('-');
+            const id = parseInt(listIdArr[1]);
+            const itemToEdit = ItemCtrl.getItemById(id);
+            ItemCtrl.setCurrentItem(itemToEdit);
+
+            //Add item to form
+            UICtrl.addItemToForm();
+        }
+
+        e.preventDefault();
+    }
     
     return {
         init: function(){
+
+            //Clear initial state
+            UICtrl.clearEditState();
+
             //Fetch items from data structure
             const items = ItemCtrl.getItems();
 
