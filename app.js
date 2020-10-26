@@ -22,6 +22,12 @@ const App = (function(ItemCtrl, UICtrl){
             //Add item to UI list
             UICtrl.addListItem(newItem);
 
+            //Add to total calories
+            const totalCalories = ItemCtrl.getTotalCalories();
+
+            //Add total calories to UI
+            UICtrl.showTotalCalories(totalCalories);
+
             //Clear input fields
             UICtrl.clearInput();
 
@@ -36,11 +42,18 @@ const App = (function(ItemCtrl, UICtrl){
             const items = ItemCtrl.getItems();
 
             //Check if any items
-            if(items.length === 0)
+            if(items.length === 0){
             UICtrl.hideList();
-            else
+            }else{
             //Populate list with items
             UICtrl.populateItemList(items);
+            }
+
+            //Add to total calories
+            const totalCalories = ItemCtrl.getTotalCalories();
+
+            //Add total calories to UI
+            UICtrl.showTotalCalories(totalCalories);
 
             //Load event listeners
             loadEventListeners();
