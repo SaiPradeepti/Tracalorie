@@ -30,6 +30,8 @@ const UICtrl = (function(){
             }
         },
         addListItem: function(item){
+            //show list
+            document.querySelector(UISelectors.itemList).style.display = 'block';
             //Create li element
             const li = document.createElement('li');
             //Add class
@@ -43,6 +45,14 @@ const UICtrl = (function(){
             </a>`;
             //Insert item
             document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+        },
+        
+        clearInput: function(){
+            document.querySelector(UISelectors.itemNameInput).value = '';
+            document.querySelector(UISelectors.itemCaloriesInput).value = '';
+        },
+        hideList: function(){
+            document.querySelector(UISelectors.itemList).style.display = 'none';
         },
         getSelectors: function(){
             return UISelectors;

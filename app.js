@@ -21,6 +21,10 @@ const App = (function(ItemCtrl, UICtrl){
 
             //Add item to UI list
             UICtrl.addListItem(newItem);
+
+            //Clear input fields
+            UICtrl.clearInput();
+
         }
 
         e.preventDefault();
@@ -31,6 +35,10 @@ const App = (function(ItemCtrl, UICtrl){
             //Fetch items from data structure
             const items = ItemCtrl.getItems();
 
+            //Check if any items
+            if(items.length === 0)
+            UICtrl.hideList();
+            else
             //Populate list with items
             UICtrl.populateItemList(items);
 
