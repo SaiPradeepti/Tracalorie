@@ -62,6 +62,18 @@ const ItemCtrl = (function(){
             });
             return found;
         },
+        updateItem: function(name, calories){
+            calories =  parseInt(calories);
+            let found = null;
+            data.items.forEach(item =>{
+                if(item.id === data.currentItem.id){
+                    item.name = name;
+                    item.calories = calories;
+                    found = item;
+                }
+            });
+            return found;
+        },
         setCurrentItem: function(item){
             data.currentItem = item;
         },
