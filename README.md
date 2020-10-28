@@ -1,4 +1,5 @@
 # Tracalorie App
 
-- Simple app that tracks calories
+- Tracks calories
+- Operations - Add, update, delete, clear all
 - Build using Vanilla Javascript
