@@ -97,6 +97,9 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         //Add total calories to UI
         UICtrl.showTotalCalories(totalCalories);
 
+        //Update local storage
+        StorageCtrl.updateItemStorage(updatedItem);
+
         UICtrl.clearEditState();
         
         e.preventDefault();
@@ -119,6 +122,9 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
         //Add total calories to UI
         UICtrl.showTotalCalories(totalCalories);
 
+        //Delete from local storage
+        StorageCtrl.deleteItemFromStorage(currentItem.id);
+
         UICtrl.clearEditState();
 
         e.preventDefault();
@@ -140,6 +146,9 @@ const App = (function(ItemCtrl, StorageCtrl, UICtrl){
 
         //Hide UL
         UICtrl.hideList();
+
+        //Clear from local storage
+        StorageCtrl.clearItemsFromStorage();
 
         //Clear state
         UICtrl.clearEditState();
