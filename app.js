@@ -1,5 +1,7 @@
+// const { UI } = require("winjs");
+
 // App Controller
-const App = (function(ItemCtrl, UICtrl){
+const App = (function(ItemCtrl, StorageCtrl, UICtrl){
     //Load event listeners
     const loadEventListeners = function(){
         //Get UI selectors
@@ -19,8 +21,17 @@ const App = (function(ItemCtrl, UICtrl){
         //Edit icon click event
         document.querySelector(UISelectors.itemList).addEventListener('click',itemEditClick);
 
+        //Delete item event
+        document.querySelector(UISelectors.deleteBtn).addEventListener('click',itemDeleteSubmit);
+
         //Update item event
         document.querySelector(UISelectors.updateBtn).addEventListener('click',itemUpdateSubmit);
+        
+        //Back button event
+        document.querySelector(UISelectors.backBtn).addEventListener('click', UICtrl.clearEditState);
+
+        //Clear button event
+        document.querySelector(UISelectors.clearBtn).addEventListener('click', clearAllItemsClick);
         
     }
 
@@ -43,8 +54,11 @@ const App = (function(ItemCtrl, UICtrl){
             //Add total calories to UI
             UICtrl.showTotalCalories(totalCalories);
 
+            //Store in localStorage
+            StorageCtrl.storeItem(newItem);
+
             //Clear input fields
-            UICtrl.clearInput();
+            UICtrl.clearInput(newItem);
 
         }
 
@@ -87,6 +101,49 @@ const App = (function(ItemCtrl, UICtrl){
         
         e.preventDefault();
     }
+
+    //Delete button event
+    const itemDeleteSubmit = function(e){
+        //Get current item
+        const currentItem = ItemCtrl.getCurrentItem();
+
+        //Delete from data structure
+        ItemCtrl.deleteItem(currentItem.id);
+
+        //Delete from UI
+        UICtrl.deleteListItem(currentItem.id);
+
+        //Add to total calories
+        const totalCalories = ItemCtrl.getTotalCalories();
+
+        //Add total calories to UI
+        UICtrl.showTotalCalories(totalCalories);
+
+        UICtrl.clearEditState();
+
+        e.preventDefault();
+    }
+
+    //Clear items event
+    const clearAllItemsClick = function(){
+        //Delete all items from data strucutre
+        ItemCtrl.clearAllITems();
+
+        //Delete all items from UI
+        UICtrl.removeItems();
+
+        //Add to total calories
+        const totalCalories = ItemCtrl.getTotalCalories();
+
+        //Add total calories to UI
+        UICtrl.showTotalCalories(totalCalories);
+
+        //Hide UL
+        UICtrl.hideList();
+
+        //Clear state
+        UICtrl.clearEditState();
+    }
     
     return {
         init: function(){
@@ -116,6 +173,6 @@ const App = (function(ItemCtrl, UICtrl){
         }
     }
 
-})(ItemCtrl, UICtrl);
+})(ItemCtrl, StorageCtrl, UICtrl);
 
 App.init();

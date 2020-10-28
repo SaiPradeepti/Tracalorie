@@ -9,11 +9,12 @@ const ItemCtrl = (function(){
 
     //Data Structure / State
     const data = {
-        items: [
-            // {id: 0, name: 'Steak Dinner', calories: 1200},
-            // {id: 1, name: 'Cookie', calories: 400},
-            // {id: 2, name: 'Eggs', calories: 300}
-        ],
+        // items: [
+        //     // {id: 0, name: 'Steak Dinner', calories: 1200},
+        //     // {id: 1, name: 'Cookie', calories: 400},
+        //     // {id: 2, name: 'Eggs', calories: 300}
+        // ],
+        items:StorageCtrl.getItemsFromStorage(),
         currentItem: null,
         totalCalories: 0
     }
@@ -73,6 +74,19 @@ const ItemCtrl = (function(){
                 }
             });
             return found;
+        },
+        deleteItem: function(id){
+            //Get ids
+            const ids = data.items.map(item => item.id);
+            
+            //Get index
+            const index = ids.indexOf(id);
+
+            //Remove item
+            data.items.splice(index,1);
+        },
+        clearAllITems: function(){
+            data.items = [];
         },
         setCurrentItem: function(item){
             data.currentItem = item;
